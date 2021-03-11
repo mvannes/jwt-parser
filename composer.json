@@ -1,0 +1,20 @@
+{
+    "name": "mvannes/jwt-parser",
+    "description": "Parser for jwt tokens with verification support",
+    "type": "library",
+    "require": {
+        "php": "^7.3",
+        "ext-json": "*",
+        "ext-openssl": "*",
+        "phpseclib/phpseclib": "^3.0",
+        "web-token/jwt-framework": "^2.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Mvannes\\JwtParser\\": "src/"
+        }
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^5.2"
+    }
+}
