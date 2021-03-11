@@ -24,7 +24,7 @@ class RS512 implements SigningMethodInterface
     public function validate(string $token, string $signature): bool
     {
         $publicKey = PublicKeyLoader::load($this->publicKey);
-        $publicKey = $publicKey->withHash('sha512');;
+        $publicKey = $publicKey->withHash('sha512');
         $publicKey = $publicKey->withPadding(RSA::SIGNATURE_RELAXED_PKCS1);
         return $publicKey->verify($token, $signature);
 

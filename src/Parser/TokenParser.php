@@ -15,20 +15,9 @@ class TokenParser
         }
 
         [$encodedHeader, $encodedClaims, $encodedSignature] = $parts;
-        $headerString = base64_decode(urldecode($encodedHeader));
-        $claimsString = base64_decode(urldecode($encodedClaims));
-        $signatureString = base64_decode(urldecode($encodedSignature));
-        $headerString =   base64_decode(str_replace(array('-', '_'), array('+', '/'), $encodedHeader));
-        $claimsString =   base64_decode(str_replace(array('-', '_'), array('+', '/'), $encodedClaims));
-        $signatureString =   base64_decode(str_replace(array('-', '_'), array('+', '/'), $encodedSignature));
-
-//        $remainder = \strlen($encodedSignature) % 4;
-//        if ($remainder) {
-//            $padlen = 4 - $remainder;
-//            $encodedSignature .= \str_repeat('=', $padlen);
-//        }
-//        $signatureString =  \base64_decode(\strtr($encodedSignature, '-_', '+/'));
-
+        $headerString =  $this->base64UrlDecode($encodedHeader);
+        $claimsString = $this->base64UrlDecode($encodedClaims);
+        $signatureString = $this->base64UrlDecode($encodedSignature);
 
         if (false === $headerString || false === $claimsString || false === $signatureString) {
             throw new \InvalidArgumentException('Unparsable token given.');
@@ -42,5 +31,14 @@ class TokenParser
         }
 
         return new Token($headers, $claims, $signatureString);
+    }
+
+    private function base64UrlDecode(string $encoded): string {
+        $remainder = \strlen($encoded) % 4;
+        if ($remainder) {
+            $padlen = 4 - $remainder;
+            $encoded .= \str_repeat('=', $padlen);
+        }
+        return  \base64_decode(\strtr($encoded, '-_', '+/'));
     }
 }
