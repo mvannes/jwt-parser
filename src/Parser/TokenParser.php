@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Mvannes\JwtParser\Parser;
 
 use Mvannes\JwtParser\Token\Token;

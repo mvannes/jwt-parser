@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 
 namespace Mvannes\JwtParser\Key\SigningMethod;
 
@@ -27,6 +27,5 @@ class RS512 implements SigningMethodInterface
         $publicKey = $publicKey->withHash('sha512');
         $publicKey = $publicKey->withPadding(RSA::SIGNATURE_RELAXED_PKCS1);
         return $publicKey->verify($token, $signature);
-
     }
 }
